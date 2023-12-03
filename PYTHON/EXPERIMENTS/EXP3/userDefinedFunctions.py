@@ -30,9 +30,9 @@ def perfect_number(num):
 
     return True if sum==num else False
 
-n = int(input("Enter a num : "))
+n = int(input("\nEnter a num : "))
 isPerfect = perfect_number(n)
-print(isPerfect)
+print(f"{n} is a perfect number\n") if isPerfect else print(f"{n} is a not a perfect number\n")
 
 # code to print greatest of two number using lamda
 

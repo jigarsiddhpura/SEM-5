@@ -1,8 +1,6 @@
 def getValueAtIndex(content,index):
     return int(content[index].strip())
 
-
-
 #     open('sort.txt','a') as s:
 # def addValueInFile(value):
 #         s.write(str(value)+"\n")
@@ -30,7 +28,6 @@ with open('file1.txt','r') as f, open('file2.txt','r') as g, open('sort.txt','w'
             i+=1
             j+=1
 
-        
     
     while(i<len1):
         value1 = content1[i].strip()
