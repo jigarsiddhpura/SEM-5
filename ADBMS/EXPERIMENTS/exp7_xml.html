@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      margin: 5px;
+    }
+
+    th, td {
+      padding: 5px;
+    }
+
+    input {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <button type="button" onclick="loadXMLDoc()">View Information about the Books</button>
+  <br><br>
+  <div>
+    <label>Search a title</label>
+    <input type="text" name="title" onchange="performQuery(event)" />
+  </div>
+  <div>
+    <label>Search an author</label>
+    <input type="text" name="author" onchange="performQuery(event)" />
+  </div>
+  <div>
+    <label>Search a genre</label>
+    <input type="text" name="genre" onchange="performQuery(event)" />
+  </div>
+  <div>
+    <label>Search a price</label>
+    <input type="text" name="price" onchange="performQuery(event)" />
+  </div>
+  <div>
+    <label>Search a Publish Date</label>
+    <input type="text" name="publish_date" onchange="performQuery(event)" />
+  </div>
+  <table id="data-table"></table>
+  <h2>Result</h2>
+  <table id="query-table"></table>
+
+  <script>
+    var arrayObj = [];
+
+    function loadXMLDoc() {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          myFunction(this);
+        }
+      };
+      xmlhttp.open("GET", "books.xml", true);
+      xmlhttp.send();
+    }
+
+    function myFunction(xml) {
+      var i;
+      var xmlDoc = xml.responseXML;
+      var table = "<tr><th>Title</th><th>Author</th><th>Genre</th><th>Price</th><th>Publish Date</th><th>Description</th></tr>";
+      var x = xmlDoc.getElementsByTagName("book");
+
+      for (i = 0; i < x.length; i++) {
+        table += "<tr><td>" +
+          x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue + "</td><td>" +
+          x[i].getElementsByTagName("author")[0].childNodes[0].nodeValue + "</td><td>" +
+          x[i].getElementsByTagName("genre")[0].childNodes[0].nodeValue + "</td><td>" +
+          x[i].getElementsByTagName("price")[0].childNodes[0].nodeValue + "</td><td>" +
+          x[i].getElementsByTagName("publish_date")[0].childNodes[0].nodeValue + "</td><td>" +
+          x[i].getElementsByTagName("description")[0].childNodes[0].nodeValue + "</td></tr>";
+
+        arrayObj.push({
+          title: x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue,
+          author: x[i].getElementsByTagName("author")[0].childNodes[0].nodeValue,
+          genre: x[i].getElementsByTagName("genre")[0].childNodes[0].nodeValue,
+          price: x[i].getElementsByTagName("price")[0].childNodes[0].nodeValue,
+          publish_date: x[i].getElementsByTagName("publish_date")[0].childNodes[0].nodeValue,
+          description: x[i].getElementsByTagName("description")[0].childNodes[0].nodeValue
+        });
+      }
+
+      document.getElementById("data-table").innerHTML = table;
+      console.log(arrayObj);
+    }
+
+    function performQuery(event) {
+      var res = arrayObj.find((obj) =>
+        obj[event.target.name].toLowerCase().includes(event.target.value.toLowerCase()));
+      console.log(res);
+
+      if (res) {
+        var queryTable = "<tr><th>Title</th><th>Author</th><th>Genre</th><th>Price</th><th>Publish Date</th><th>Description</th></tr>";
+        queryTable += "<tr><td>" + res.title +
+          "</td><td>" + res.author +
+          "</td><td>" + res.genre + "</td><td>" + res.price + "</td><td>" + res.publish_date + "</td><td>" + res.description + "</td></tr>";
+        document.getElementById("query-table").innerHTML = queryTable;
+      } else {
+        alert("No result found!");
+      }
+    }
+  </script>
+</body>
+
+</html>

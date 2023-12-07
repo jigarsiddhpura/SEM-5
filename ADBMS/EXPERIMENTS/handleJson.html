@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hello</h1>
+    <button onclick="handleClick()">Load JSON</button>
+    <p id="name"></p>
+    <p id="city"></p>
+    <p id="country"></p>
+    <script>
+      // import myjson from './data.json' assert { type: 'json' };
+      //  var ptag=document.getElementById("new")
+      //         document.getElementById("butt").addEventListener("click",()=>{
+      //             console.log(myjson)
+      //             ptag.innerHTML=myjson.name
+      //         })
+
+      function handleClick() {
+        var met;
+        fetch('./dummy.json')
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+            console.log(data);
+            var name = document.getElementById('name');
+            var city = document.getElementById('city');
+            var country = document.getElementById('country');
+            name.innerHTML = data.name;
+            city.innerHTML = data.location;
+            country.innerHTML = data.country;
+          });
+      }
+    </script>
+  </body>
+</html>
