@@ -1,0 +1,2 @@
+
+        error = d[i] - op

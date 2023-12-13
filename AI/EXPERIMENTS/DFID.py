@@ -32,13 +32,14 @@ def dfs(graph, current_node, goal_node, visited, path, curr_depth, depth):
             print(f"{visited}\t\t{not_visited}\t\tFalse")
             for i in graph[current_node]:
                 path, status = dfs(graph, i, goal_node, visited, path, curr_depth+1, depth)
-                if status == True:
+                if status:
                     return path, True
                 
         return path,False
     else:
         return path,False
 
-path1, status =  dfid(graph,'A','G',[],[],3)
-# path2, status = dfs(graph,'A','G',[],[],0,3)
-# print(path1)
+path1, status =  dfid(graph,'A','D',[],[],3)
+
+if not status:
+    print("No path found")

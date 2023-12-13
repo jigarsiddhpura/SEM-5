@@ -43,7 +43,7 @@ for epoch in range(epochs):
         # Update weights
         dW = c * error * X[i]
         W += dW
-
+        
         print("W", i, W)
 
     print("\nW after ", epoch + 1, " epochs ", W)

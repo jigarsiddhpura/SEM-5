@@ -1,25 +1,25 @@
 import copy
 
-visited_states: list = []
+# visited_states: list = []
 
 def generate_child_state(current_state :list, prev_heuristic :int, goal_state :list) -> list|int :
     """Generates a child state by moving an element from one peg to another."""
 
-    global visited_states
-    state_copy = copy.deepcopy(current_state)
+    # global visited_states
+    state_copy = copy.deepcopy(current_state) #3
 
     for i in range(len(state_copy)):
-        temp_state = copy.deepcopy(state_copy)
+        temp_state = copy.deepcopy(state_copy)  #4
 
         if len(temp_state[i]) > 0:
-            # print(f"temp sta = {temp_state}, i = {i}")  
+            # print(f"temp state = {temp_state}, i = {i}")  
 
             # .pop remove last element from the list and returns it ⭐
             element = temp_state[i].pop()
             # print(f"element = {element}")
 
             for j in range(len(temp_state)):
-                new_state = copy.deepcopy(temp_state)
+                new_state = copy.deepcopy(temp_state)  #5
 
                 if j != i:
                     new_state[j] = new_state[j] + [element]
@@ -29,7 +29,7 @@ def generate_child_state(current_state :list, prev_heuristic :int, goal_state :l
                     # print(j,i,"->",current_heuristic,prev_heuristic)
 
                     if current_heuristic > prev_heuristic:
-                        child_state = copy.deepcopy(new_state)
+                        child_state = copy.deepcopy(new_state)  #6
                         return child_state
 
     return 0
@@ -56,17 +56,18 @@ def calculate_heuristic(current_state :list, goal_state :list) -> int:
 
 
 def solve_puzzle(initial_state, goal_state):
-    global visited_states
+    # global visited_states
+    i = 0
 
     if initial_state == goal_state:
         print(f"Solution found! {goal_state}\n")
         return
 
     # create deepcopy to prevent changes in the NESTED structure of the ORIGINAL list
-    current_state = copy.deepcopy(initial_state)
+    current_state = copy.deepcopy(initial_state) #1
 
     while True:
-        visited_states.append(copy.deepcopy(current_state))
+        # visited_states.append(current_state)
         print(f"Current State: {current_state}")
 
         prev_heuristic = calculate_heuristic(current_state, goal_state)
@@ -79,11 +80,13 @@ def solve_puzzle(initial_state, goal_state):
             return
 
         print(f"Child chosen for exploration: {child}\n")
-        current_state = copy.deepcopy(child)
+        current_state = copy.deepcopy(child) #2
+        i+= 1
+        # if i==2 : break
         
 
 def main():
-    global visited_states
+    # global visited_states
     initial_state = [[], [], [], ['B', 'C', 'D', 'A']]
     goal_state = [[], [], [], ['A', 'B', 'C', 'D']]
     solve_puzzle(initial_state, goal_state)

@@ -15,7 +15,7 @@ def bfs(graph, current_node, goal_node, visited, path, queue):
     not_visited = [i for i in graph.keys() if i not in visited]
     print(f"{visited}\t\t{not_visited}\t\tFalse")
     while queue:
-        node = queue.pop(0)
+        node = queue.pop(0)  # ⭐ 
         
         path.append(node)
         if node == goal_node:

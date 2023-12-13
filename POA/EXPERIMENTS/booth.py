@@ -23,7 +23,7 @@ def binary_addition(a,b):
     if carry != 0:
         result = '1' + result
     
-    result = result.zfill(max_len)
+    # result = result.zfill(max_len)
 
     return result[-max_len:]
 

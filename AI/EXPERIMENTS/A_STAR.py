@@ -50,6 +50,7 @@ def calcFn(path,node):
     for i in range(len(path)-1):
         fn += graph[path[i]][path[i+1]]
     fn += graph[path[-1]][node] + graph_heu[node]
+    print(f"fn = {fn}, node = {node}, path = {path}")
     return fn
 
 if __name__=="__main__":
