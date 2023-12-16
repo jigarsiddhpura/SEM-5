@@ -1,34 +1,36 @@
-#Client
-
 import socket
-host = "127.0.0.1"
-port = 8000
-log = ""
-over = 0
-msg =""
 
-while True:
-    try:
-        s = socket.socket()
-        s.connect((host,port))
-        data = s.recv(1024).decode().upper()
-        print(f"COORDINATOR: {data}")
-        if data == "ABORT":
-            msg = "OK"
-            print("TRANSACTION ABORTED!")
-            print("END OF TRANSACTION\n final log is: ",log+" "+data)
-            over =1
-        elif data =="COMPLETE":
-            msg="OK"
-            print("TRANSACTION COMPLETED!")
-            print("END OF TRANSACTION\n final log is: ",log+" "+data)
-            over =1
-        else:
-            data = input("SYSTEM STATUS: ").upper()
-            s.send(data.encode())
-            log += data+" "
-        if over == 1:
+
+def client():
+    port = 8000
+    host = "127.0.0.1"
+    log = ""
+    over = 0
+
+    while 1:
+        try:
+            sock = socket.socket()
+            sock.connect((host, port))
+            rec_data = sock.recv(1024).decode().lower()
+            print("Coordinator : ", rec_data)
+            if rec_data == "abort":
+                over = 1
+                msg = "ok"
+                print("trans ends as aborted")
+            elif rec_data == "success":
+                over = 1
+                msg = "ok"
+                print("trans complete")
+            else:
+                msg = input("System status : ").lower()
+                log += " " + msg
+            sock.send(msg.encode())
+            if over == 1:
+                break
+            sock.close()
+        except Exception as e:
+            print(f"Transaction ends log : {log}")
             break
-    except:
-        print("END OF TRANSACTION\n final log is: ",log+" "+data)
-        break
+
+
+client()

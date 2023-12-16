@@ -1,0 +1,23 @@
+[
+    {
+      "name": "John Doe",
+      "location": "New York",
+      "country": "USA"
+    },
+    {
+      "name": "Alice Smith",
+      "location": "London",
+      "country": "UK"
+    },
+    {
+      "name": "Bob Johnson",
+      "location": "Paris",
+      "country": "France"
+    },
+    {
+      "name": "Eva Rodriguez",
+      "location": "Tokyo",
+      "country": "Japan"
+    }
+  ]
+  

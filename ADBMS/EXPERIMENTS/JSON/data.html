@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+  <head>
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hello</h1>
+    <label for="search">Search:</label>
+    <input type="text" id="search" />
+    <button onclick="handleSearchName()">Search by name</button>
+    <button onclick="handleSearchCity()">Search by city</button>
+    <button onclick="handleClick()">Load JSON</button>
+    <table id="details"></table>
+    <script>
+      async function handleClick() {
+        var table = "";
+        var data = await fetch('./data.json');
+        data = await data.json();
+        displayData(data);
+      }
+
+      function displayData(data) {
+        var table = "<tr><th>Name</th><th>Location</th><th>Country</th></tr>";
+        data.forEach((element) => {
+          table +=
+            '<tr><td>' +
+            element['name'] +
+            '</td><td>' +
+            element['location'] +
+            '</td><td>' +
+            element['country'] +
+            '</td></tr>';
+        });
+        document.getElementById("details").innerHTML = table;
+      }
+
+      async function handleSearchName() {
+        var searchQuery = document.getElementById("search").value.toLowerCase();
+        var data = await fetch('./data.json');
+        data = await data.json();
+        var filteredData = data.filter((obj) => {
+          return obj.name.toLowerCase().includes(searchQuery);
+        });
+        displayData(filteredData);
+      }
+
+      async function handleSearchCity() {
+        var searchQuery = document.getElementById("search").value.toLowerCase();
+        console.log(searchQuery)
+        var data = await fetch('./data.json');
+        data = await data.json();
+        var filteredData = data.filter((obj) => {
+          return obj.location.toLowerCase().includes(searchQuery);
+        });
+        console.log(filteredData)
+        displayData(filteredData);
+      }
+
+    </script>
+  </body>
+</html>

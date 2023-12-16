@@ -1,37 +1,38 @@
 import socket
-host = "127.0.0.1"
-port = 8000
 
-s = socket.socket()
-s.bind((host,port))
-s.listen(3)
-print("SERVER IS RUNNING")
 
-msg = "PREPARE"
-log=msg
+def server():
+    port = 8000
+    host = "127.0.0.1"
+    msg = "Prepare"
+    log = msg
+    over = 0
+    sock = socket.socket()
+    sock.bind((host, port))
+    sock.listen(2)
+    while 1:
+        replies = []
+        print(f"Co ordinator : {msg.lower()}")
 
-over = 0
+        for i in range(3):
+            conn, address = sock.accept()
+            conn.send(msg.encode())
+            data = conn.recv(1024).decode()
+            replies.append(data.lower())
+            print(f"subordinator {i} {address} : {data.lower()}")
+        if over == 1:
+            break
+        if ("abort") in replies or len(replies) < 3:
+            msg = "abort"
+            print(f"trans abort \n final log : {log} {msg}")
+            over = 1
+        elif "success" in replies:
+            msg = "complete"
+            print(f"Transaction Complete\n {log} {msg}")
+            over = 1
+        else:
+            msg = "commit"
+        log += " " + msg
 
-while True:
-    replies = []
-    print(f"COORDINATOR: {msg.upper()}")
-    for i in range(3):
-        c,adrr = s.accept()
-        c.send(msg.encode())
-        data = c.recv(1024).decode()
-        replies.append(data.upper())
-        print(f"Subordinator {i} {adrr} : {data.upper()}")
-    if over == 1:
-        break
-    if "ABORT" in replies:
-        msg = "ABORT"
-        print(f"TRANSACTION LOG : {log} {msg}")
-        over = 1
-    elif "SUCCESS" in replies:
-        msg = "COMPLETE"
-        print(f"TRANSACTION LOG : {log} {msg}")
-        over = 1
-    else:
-        msg = "COMMIT"
-        log += " "+msg
-    
+
+server()

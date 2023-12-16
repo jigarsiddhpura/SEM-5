@@ -28,8 +28,6 @@ def generate_mate(size,mate_element_size):
     """
     Generates mates for crossover with a given size and mate element size.
     """
-    print(size)
-    print(mate_element_size)
     if size % 2 != 0:
         return -1
 
@@ -94,7 +92,7 @@ def GA(gene,iter,n):
     print(f"\n----------------------------------------------- New Population {n} ------------------------------------------------")
     print("Mate Pool\tMate\t\tCrossover Points\tNew Population\t\tx value\t\tf(x)")
     print("-----------------------------------------------------------------------------------------------------------------")
-    
+
     for i in range(len(gene)):
         print(f"{mate_pool[i]}\t\t{mate[i]}\t\t{crossover_points[i]}\t\t\t{new_poplu[i]}\t\t\t{x[i]}\t\t{fx[i]}")
 
