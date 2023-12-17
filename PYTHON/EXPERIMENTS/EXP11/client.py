@@ -11,9 +11,10 @@ def client():
         x = input("Enter New Message: ")
         y = x.encode('ascii')
         s.send(y)
-        data = s.recv(1024)
-        d = data.decode('ascii')
-        print('Server: ', d)
-
+        data = s.recv(1024).decode('ascii')
+        if not data:
+            s.close()
+            break
+        print('Server: ', data)
 
 client()

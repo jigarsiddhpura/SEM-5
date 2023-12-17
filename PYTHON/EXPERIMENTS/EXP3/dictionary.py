@@ -4,7 +4,7 @@ print("Original dictionary:", dict1)
 dict2 = dict1.copy()
 print("Copied Dictionary :",dict2)
 # fromkeys() – gives details from dictionary
-seq = ('1', '2', '3')
+seq = ('4', '5', '6')
 print("fromkeys() method")
 print(dict1.fromkeys(seq, None))
 # clear()- clears the dictionary

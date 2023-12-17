@@ -5,13 +5,13 @@ print(f'Addition of {a} and {b} is ',a+b)
 print(f'subtraction of {a} and {b} is ',a-b)
 print(f'Modulo of {a} and {b} is ',a%b)
 print(f'Multiplication of {a} and {b} is ',a*b)
-print(f'Division of {a} and {b} is ',a/b)
-print(f'Remainder of {a} by {b} is ',a//b)
+print(f'Division of {a} and {b} is ',a/b)   # true division
+print(f'Remainder of {a} by {b} is ',a//b)  # floor division
 print(f'{a} raise to {b} is ',a**b)
 
 c = 14
 print("\nAssignment Operators :")
-print("Inital value of c :")
+print("Inital value of c :")    
 print(c)
 c+=6
 print("Adding 6 to it gives ",c)
@@ -64,5 +64,5 @@ print(f"{a} ^ {b} is : ",a^b)
 print(f"{a} << 3 is : ",a<<3)
 print(f"{b} >> 3 is : ",b>>3)
 print(f"~ {a} is : ",~a)
-print(f"~ {b} is : ",~b)
+print(f"~ {b} is : ",~b) # ~n = -(n+1)
 print(f"{a} >> 2 is : ",b>>2)

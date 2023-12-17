@@ -8,15 +8,17 @@ def server():
     s = socket.socket()
     s.bind((host, port))
     s.listen(1)
-    c, addr = s.accept()
+    conn, addr = s.accept()
     print("Client Address: ", addr)
     while True:
-        data = c.recv(1024)
-        d = data.decode('ascii')
-        print('Client: ', d)
+        data = conn.recv(1024).decode('ascii')
+        print('Client: ', data)
+        if "exit" in data:
+            conn.close()
+            break
         x = input('>>> ')
         y = x.encode('ascii')
-        c.send(y)
+        conn.send(y)
 
 
 server()
